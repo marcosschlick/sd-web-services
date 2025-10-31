@@ -1,56 +1,52 @@
 package event;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/events")
 class EventController {
 
-    private final EventRepository repository;
+    private final EventService service;
 
-    EventController(EventRepository repository) {
-        this.repository = repository;
+    EventController(EventService service) {
+        this.service = service;
     }
 
-    @PostMapping("/events")
-    Event newEvent(@RequestBody Event newEvent) {
-        return repository.save(newEvent);
+    @PostMapping
+    Event create(@RequestBody Event event) {
+        return service.create(event);
     }
 
-    @GetMapping("/events")
-    List<Event> all() {
-        return repository.findAll();
+    @GetMapping
+    List<Event> getAll() {
+        return service.findAll();
     }
 
-    @GetMapping("/events/{id}")
-    Event one(@PathVariable Long id) {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new EventNotFoundException(id));
+    @GetMapping("/{id}")
+    Event getById(@PathVariable Long id) {
+        return service.findById(id);
     }
 
-    @PutMapping("/events/{id}")
-    Event replaceEvent(@RequestBody Event newEvent, @PathVariable Long id) {
-
-        return repository.findById(id)
-                .map(event -> {
-                    event.setName(newEvent.getName());
-                    return repository.save(event);
-                })
-                .orElseGet(() -> {
-                    return repository.save(newEvent);
-                });
+    @GetMapping("/upcoming")
+    List<Event> getUpcomingEvents(@RequestParam LocalDate date) {
+        return service.findUpcomingEvents(date);
     }
 
-    @DeleteMapping("/events/{id}")
-    void deleteEvent(@PathVariable Long id) {
-        repository.deleteById(id);
+    @GetMapping("/past")
+    List<Event> getPastEvents(@RequestParam LocalDate date) {
+        return service.findPastEvents(date);
+    }
+
+    @PutMapping("/{id}")
+    Event update(@RequestBody Event event, @PathVariable Long id) {
+        return service.update(event, id);
+    }
+
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }

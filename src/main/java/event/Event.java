@@ -15,13 +15,13 @@ class Event {
     private String name;
     private String description;
     LocalDateTime date;
-    private double lat;
-    private double lon;
+    private Double lat;
+    private Double lon;
 
     Event() {
     }
 
-    Event(String name, String description, LocalDateTime date, double lat, double lon) {
+    Event(String name, String description, LocalDateTime date, Double lat, Double lon) {
         this.name = name;
         this.description = description;
         this.date = date;
@@ -61,7 +61,7 @@ class Event {
         this.date = date;
     }
 
-    public double getLat() {
+    public Double getLat() {
         return lat;
     }
 
@@ -69,7 +69,7 @@ class Event {
         this.lat = lat;
     }
 
-    public double getLon() {
+    public Double getLon() {
         return lon;
     }
 
