@@ -26,11 +26,19 @@ public class EventService {
                 .orElseThrow(() -> new EventNotFoundException(id));
     }
 
-    List<Event> findUpcomingEvents(LocalDate date) {
+    List<Event> findByDay(LocalDate date) {
+        return repository.findAllByDateBetween(date.atStartOfDay(), date.atTime(23, 59));
+    }
+
+    List<Event> findEventsInDateRange(LocalDate startDate, LocalDate endDate) {
+        return repository.findAllByDateBetween(startDate.atStartOfDay(), endDate.atTime(23, 59));
+    }
+
+    List<Event> findEventsFromDate(LocalDate date) {
         return repository.findAllByDateGreaterThan(date.atStartOfDay());
     }
 
-    List<Event> findPastEvents(LocalDate date) {
+    List<Event> findEventsUntilDate(LocalDate date) {
         return repository.findAllByDateLessThan(date.atStartOfDay());
     }
 

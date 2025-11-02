@@ -30,14 +30,24 @@ class EventController {
         return service.findById(id);
     }
 
-    @GetMapping("/upcoming")
-    List<Event> getUpcomingEvents(@RequestParam LocalDate date) {
-        return service.findUpcomingEvents(date);
+    @GetMapping("/date/{date}")
+    List<Event> getEventsByDay(@PathVariable LocalDate date) {
+        return service.findByDay(date);
     }
 
-    @GetMapping("/past")
-    List<Event> getPastEvents(@RequestParam LocalDate date) {
-        return service.findPastEvents(date);
+    @GetMapping("/date-range")
+    List<Event> getEventsByDateRange(@RequestParam LocalDate start, LocalDate end) {
+        return service.findEventsInDateRange(start, end);
+    }
+
+    @GetMapping("/upcoming-from")
+    List<Event> getUpcomingEventsFrom(@RequestParam LocalDate date) {
+        return service.findEventsFromDate(date);
+    }
+
+    @GetMapping("/before-date")
+    List<Event> getEventsBefore(@RequestParam LocalDate date) {
+        return service.findEventsUntilDate(date);
     }
 
     @PutMapping("/{id}")
