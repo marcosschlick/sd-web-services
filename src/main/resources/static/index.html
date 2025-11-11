@@ -1,14 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>eventos</title>
-</head>
-<body>
-<h1>Hello, World!</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="create-event">
+      <p class="title">Criar um evento</p>
+      Nome <input type="text" id="create-event-name" />
+      <br />
+      Descrição <input type="text" id="create-event-description" />
+      <br />
+      Data <input type="date" id="create-event-date" />
+      <br />
+      Horário <input type="time" id="create-event-time" step="60" />
+      <br />
+      Latitude <input type="text" id="create-event-lat" />
+      <br />
+      Longitude <input type="text" id="create-event-lon" />
+      <br />
+      <button id="create-event-btn">criar</button>
+    </div>
 
-</body>
+    <div id="update-event">
+      <p class="title">Atualizar um evento</p>
+      Id: <input type="number" id="update-event-id" />
+      <br />
+      Nome <input type="text" id="update-event-name" />
+      <br />
+      Descrição <input type="text" id="update-event-description" />
+      <br />
+      Data <input type="date" id="update-event-date" />
+      <br />
+      Horário <input type="time" id="update-event-time" step="60" />
+      <br />
+      Latitude <input type="text" id="update-event-lat" />
+      <br />
+      Longitude <input type="text" id="update-event-lon" />
+      <br />
+      <button id="update-event-btn">atualizar</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
