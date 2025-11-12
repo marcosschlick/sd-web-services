@@ -169,8 +169,43 @@ btnListAllEvents.onclick = async function () {
     } else {
       const error = await response.text();
       console.error(error);
+      alert("Erro ao listas eventos: " + error);
     }
   } catch (error) {
     console.error(error);
+    // alert("Erro na conexão com o servidor");
+  }
+};
+
+// delete event
+const idDeleteEvent = document.getElementById("delete-event-id");
+const btnDeleteEvent = document.getElementById("delete-event-btn");
+
+btnDeleteEvent.onclick = async function () {
+  const id = parseInt(idDeleteEvent.value);
+
+  if (isNaN(id)) {
+    alert("ID é obrigatório");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:8080/events/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    if (response.ok) {
+      alert("Evento excluído com sucesso");
+      idUpdateEvent.value = "";
+    } else {
+      const error = await response.text();
+      console.error(error);
+      alert("Erro ao atualizar evento: " + error);
+    }
+  } catch (error) {
+    console.error(error);
+    // alert("Erro na conexão com o servidor");
   }
 };
