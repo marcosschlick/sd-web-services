@@ -133,3 +133,44 @@ btnUpdateEvent.onclick = async function () {
     // alert("Erro na conexão com o servidor");
   }
 };
+
+// get all events
+const btnListAllEvents = document.getElementById("list-all-events-btn");
+
+btnListAllEvents.onclick = async function () {
+  try {
+    const response = await fetch("http://localhost:8080/events");
+
+    if (response.ok) {
+      const eventos = await response.json();
+      const container = document.getElementById("events-container");
+
+      container.innerHTML = "";
+
+      eventos.forEach((evento) => {
+        const row = document.createElement("tr");
+
+        const dataHora = new Date(evento.date);
+        const data = dataHora.toISOString().split("T")[0];
+        const hora = dataHora.toTimeString().split(" ")[0].substring(0, 5);
+
+        row.innerHTML = `
+          <td id="list-all-events-id-${evento.id}">${evento.id}</td>
+          <td id="list-all-events-name-${evento.id}">${evento.name}</td>
+          <td id="list-all-events-description-${evento.id}">${evento.description}</td>
+          <td id="list-all-events-date-${evento.id}">${data}</td>
+          <td id="list-all-events-time-${evento.id}">${hora}</td>
+          <td id="list-all-events-lat-${evento.id}">${evento.lat}</td>
+          <td id="list-all-events-lon-${evento.id}">${evento.lon}</td>
+        `;
+
+        container.appendChild(row);
+      });
+    } else {
+      const error = await response.text();
+      console.error(error);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
